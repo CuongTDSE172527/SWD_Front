@@ -59,8 +59,8 @@ const LoginPage: React.FC = () => {
           { username, password }
       );
       handleLoginSuccess(response.data);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      const axiosError = err as AxiosError;
       setError('Login failed. Please check your credentials and try again.');
     }
   };
