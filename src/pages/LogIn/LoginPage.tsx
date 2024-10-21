@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Row, Col, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import './Auth.css';
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 
 declare global {
   interface Window {
@@ -13,6 +13,10 @@ declare global {
 interface LoginResponse {
   accessToken: string;
   refreshToken: string;
+}
+
+interface GoogleResponse {
+  credential: string;
 }
 
 const LoginPage: React.FC = () => {
@@ -56,11 +60,12 @@ const LoginPage: React.FC = () => {
       );
       handleLoginSuccess(response.data);
     } catch (err) {
+      const axiosError = err as AxiosError;
       setError('Login failed. Please check your credentials and try again.');
     }
   };
 
-  const handleGoogleSignIn = async (response: any) => {
+  const handleGoogleSignIn = async (response: GoogleResponse) => {
     try {
       console.log('Google Sign-In response:', response);
       const res = await axios.get<LoginResponse>(
@@ -74,7 +79,8 @@ const LoginPage: React.FC = () => {
       );
       handleLoginSuccess(res.data);
     } catch (err) {
-      console.error('Google Sign-In failed:', err.response ? err.response.data : err);
+      const axiosError = err as AxiosError;
+      console.error('Google Sign-In failed:', axiosError.response ? axiosError.response.data : axiosError.message);
       setError('Google Sign-In failed. Please try again.');
     }
   };
