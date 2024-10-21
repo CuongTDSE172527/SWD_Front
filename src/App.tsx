@@ -1,17 +1,23 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from "../src/pages/HomePage.tsx";
-import LoginForm from "./components/LoginForm.tsx";
-import "./components/LoginForm.css";
-import SignUp from "./components/SignUp.tsx";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import LoginPage from "./pages/LogIn/LoginPage.tsx";
+import RegisterPage from './pages/LogIn/RegisterPage.tsx';
+import LandingPage from "./pages/LandingPage/LandingPage.tsx";
+import CoursePage from "./pages/CoursePage/CoursePage.tsx";
+import ChapterContent from "./pages/CourseDetails/ChapterContent.tsx";
+
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/Login" element={<LoginForm />} />
-                <Route path="/SignUp" element={<SignUp />} />
-                <Route path="/Home" element={<HomePage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/Home" element={<LandingPage />} />
+                <Route path="/NewCourse" element={<CoursePage />} />
+                <Route path="/CourseDetails" element={<ChapterContent />} />
             </Routes>
         </BrowserRouter>
     );
